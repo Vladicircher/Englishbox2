@@ -44,7 +44,7 @@
     .skip-link:focus{position:fixed;left:16px;top:16px;width:auto;height:auto;padding:10px 14px;background:#111827;color:#fff;border-radius:10px;z-index:1001}
 
     .container{max-width:1100px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;background:rgba(25,15,30,.7);backdrop-filter:blur(10px);border-bottom:1px solid #2a1e33;z-index:50}
+    header{position:sticky;top:0;background:rgba(25,15,30,.7);backdrop-filter:blur(10px);border-bottom:1px solid #2a1e33;z-index:60}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{display:flex;align-items:center;gap:14px}
     .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri-strong));display:grid;place-items:center;box-shadow:var(--shadow)}
@@ -59,7 +59,7 @@
     .hero p{color:var(--muted);margin:0 0 16px}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(192,132,252,.15);border:1px dashed #a855f7;color:#fde68a;font-size:12px;font-weight:600}
 
-    .section{scroll-margin-top:80px}
+    .section{scroll-margin-top:96px}
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
     .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:20px;box-shadow:var(--shadow)}
     .thumb{aspect-ratio:16/10;background:#0c0f18;border-bottom:1px solid #2a1e33;border-radius:20px 20px 0 0;overflow:hidden;display:grid;place-items:center}
@@ -90,6 +90,15 @@
     /* Thanks modal */
     .thanks-title{font-size:22px;margin:0 0 6px}
     .thanks-text{color:var(--muted);margin:0 0 10px}
+
+    /* Signup form */
+    .form{display:grid;gap:12px;max-width:560px}
+    .form label{font-weight:600}
+    .field{display:flex;flex-direction:column;gap:6px}
+    .input{padding:12px 14px;border-radius:12px;border:1px solid #2a1e33;background:#0c0f18;color:var(--txt)}
+    .input:focus{outline:3px solid rgba(192,132,252,.35);outline-offset:2px}
+    .hint{color:var(--muted);font-size:13px}
+    .btn{all:unset;cursor:pointer;padding:12px 16px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri-strong));color:#1a0e14;font-weight:800;text-align:center}
 
     footer{padding:26px 0;color:var(--muted);border-top:1px solid #2a1e33;margin-top:40px}
 
@@ -153,6 +162,7 @@
         <a href="#products">Товары</a>
         <a href="#videos">Видео</a>
         <a href="#about">О бренде</a>
+        <a href="#signup" class="cta">Записаться</a>
         <a href="https://vk.com/englishbox" class="cta" target="_blank" rel="noopener noreferrer" id="contactBtn">Связаться</a>
       </nav>
     </div>
@@ -251,6 +261,29 @@
       </ul>
       <p>Давай делать обучение лёгким, современным и настоящим праздником для детей.</p>
     </section>
+
+    <!-- Записаться на занятия -->
+    <section id="signup" class="container section" aria-labelledby="signup-title">
+      <h3 id="signup-title">Записаться на занятия</h3>
+      <p class="hint">Оставьте ваши данные — мы свяжемся с вами для подбора времени и программы.</p>
+      <form id="signupForm" class="form" aria-describedby="signup-hint" novalidate>
+        <div class="field">
+          <label for="name">Имя</label>
+          <input class="input" id="name" name="name" type="text" placeholder="Например, Анна" required minlength="2" />
+        </div>
+        <div class="field">
+          <label for="phone">Телефон</label>
+          <input class="input" id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" required pattern="^[+0-9()\-\s]{7,}$" />
+          <span class="hint" id="signup-hint">Мы используем номер только для обратной связи по записи.</span>
+        </div>
+        <!-- honeypot -->
+        <div class="field" style="position:absolute;left:-5000px;opacity:0" aria-hidden="true">
+          <label for="hp">Оставьте пустым</label>
+          <input id="hp" name="hp" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <button class="btn" type="submit">Отправить заявку</button>
+      </form>
+    </section>
   </main>
 
   <!-- Контакты -->
@@ -292,10 +325,14 @@
   </footer>
 
   <script>
+    // === Константы ===
+    const FORM_ENDPOINT = ""; // при желании укажем эндпоинт Formspree/другого сервиса
+    const FORM_EMAIL = "englishbox48@mail.ru"; // адрес для mailto-фоллбэка
+
     // Год в футере
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Модалки и ловушка фокуса
+    // ===== Универсальные функции модалок и ловушка фокуса =====
     const qrModal = document.getElementById('qrModal');
     const thanksModal = document.getElementById('thanksModal');
     let lastActive = null; // куда вернуть фокус
@@ -328,7 +365,7 @@
       if(lastActive) lastActive.focus();
     }
 
-    // Оплата (QR)
+    // ===== Оплата (QR) =====
     const qrBox = document.getElementById('qrBox');
     const qrTitle = document.getElementById('qrTitle');
     const qrLinkText = document.getElementById('qrLinkText');
@@ -338,7 +375,6 @@
     let paymentLinkOpened = false;
 
     function openQRModal(title, payLink){
-      // проверим ссылку
       try { new URL(payLink); } catch(e){
         alert('Некорректная ссылка на оплату.');
         return;
@@ -349,14 +385,13 @@
       qrInstance = new QRCode(qrBox, { text: payLink, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M });
       qrTitle.textContent = `Оплата — ${title}`;
       qrLinkText.textContent = payLink;
-      qrOpen.href = payLink; // откроется в новой вкладке
+      qrOpen.href = payLink;
       openModal(qrModal, qrOpen);
     }
 
     function closeQR(){
       closeModal(qrModal);
       if(qrInstance){ qrBox.innerHTML=''; qrInstance = null; }
-      // Если пользователь закрыл окно и не переходил по ссылке — благодарим за интерес
       if(!paymentLinkOpened){ showThanks('Спасибо за интерес к нашим товарам!'); }
     }
 
@@ -364,10 +399,8 @@
     qrModal.addEventListener('click', (e)=>{ if(e.target === qrModal) closeQR(); });
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && qrModal.getAttribute('aria-hidden') === 'false') closeQR(); });
 
-    // Кнопка перехода к оплате
     qrOpen.addEventListener('click', ()=>{
       paymentLinkOpened = true;
-      // отметим намерение оплаты: можно использовать для последующей логики
       try { localStorage.setItem('paymentIntent','1'); } catch(_){}
     });
 
@@ -380,7 +413,7 @@
       });
     });
 
-    // Модалка "Спасибо"
+    // ===== Модалка "Спасибо" =====
     const thanksTitle = document.getElementById('thanksTitle');
     const thanksText = document.getElementById('thanksText');
     const thanksClose = document.getElementById('thanksClose');
@@ -397,25 +430,62 @@
     thanksOk.addEventListener('click', closeThanks);
     thanksModal.addEventListener('click', (e)=>{ if(e.target === thanksModal) closeThanks(); });
 
-    // Поддержка сценария с возвратом с платёжной страницы
-    // Если у платёжного провайдера настроить redirect на этот URL с параметром ?payment=success,
-    // то мы покажем соответствующее сообщение.
+    // Поддержка сценария с redirect от платёжной системы
     (function handleReturn(){
       const params = new URLSearchParams(window.location.search);
       const status = params.get('payment');
       if(status === 'success'){
         showThanks('Спасибо за покупку!');
         try { localStorage.removeItem('paymentIntent'); } catch(_){}
-        // очищаем параметр, чтобы при обновлении страницы сообщение не повторялось
         const url = new URL(window.location.href);
         url.searchParams.delete('payment');
         window.history.replaceState({}, '', url.toString());
       }
     })();
+
+    // ===== Отправка формы записи =====
+    const form = document.getElementById('signupForm');
+
+    function validateForm(){
+      const name = form.name.value.trim();
+      const phone = form.phone.value.trim();
+      const honey = form.hp.value.trim();
+      if(honey) return { ok:false, msg:'Похоже, вы — робот :)' };
+      if(name.length < 2) return { ok:false, msg:'Введите имя (не короче 2 символов).' };
+      if(!/^[+0-9()\-\s]{7,}$/.test(phone)) return { ok:false, msg:'Проверьте телефон: можно +7 и цифры.' };
+      return { ok:true, name, phone };
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const v = validateForm();
+      if(!v.ok){ alert(v.msg); return; }
+
+      // Если указан внешний эндпоинт (Formspree/сервер) — отправляем POST
+      if(FORM_ENDPOINT){
+        try{
+          const fd = new FormData(form);
+          fd.append('_subject','Заявка на занятия (сайт ENGLISH BOX)');
+          const r = await fetch(FORM_ENDPOINT, { method:'POST', body: fd, headers: { 'Accept':'application/json' } });
+          if(!r.ok) throw new Error('send-failed');
+          showThanks('Спасибо! Мы получили вашу заявку и свяжемся с вами в ближайшее время.');
+          form.reset();
+          return;
+        }catch(err){
+          console.warn('Не удалось отправить на сервер, пробуем mailto', err);
+        }
+      }
+
+      // Фоллбэк — открываем почтовый клиент через mailto
+      const subject = encodeURIComponent('Заявка на занятия (сайт ENGLISH BOX)');
+      const body = encodeURIComponent(`Имя: ${v.name}\nТелефон: ${v.phone}\nВремя: ${new Date().toLocaleString()}`);
+      window.location.href = `mailto:${FORM_EMAIL}?subject=${subject}&body=${body}`;
+      showThanks('Спасибо! Открылось письмо на почту — продублируйте отправку, а мы с вами свяжемся.');
+    });
   </script>
 
   <noscript>
-    <div class="container" style="margin-top:16px;color:#fef3c7">Для создания QR-кода требуется включённый JavaScript. Вы всё равно можете перейти к оплате по кнопке «Купить» — она откроет ссылку в новой вкладке.</div>
+    <div class="container" style="margin-top:16px;color:#fef3c7">Для создания QR-кода и отправки формы требуется включённый JavaScript. Вы всё равно можете перейти к оплате по кнопке «Купить» — она откроет ссылку в новой вкладке.</div>
   </noscript>
 </body>
 </html>
