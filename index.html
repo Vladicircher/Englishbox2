@@ -143,7 +143,19 @@
         "@type": "Product",
         "name": "Kid’s Box 1 — первая ступень",
         "image": "https://example.com/images/product-kidsbox1.jpg",
-        "offers": {"@type": "Offer","priceCurrency": "RUB","price": "2000","availability": "https://schema.org/InStock"}
+        "offers": {"@type": "Offer","priceCurrency": "RUB","price": "1800","availability": "https://schema.org/InStock"}
+      },
+      {
+        "@type": "Product",
+        "name": "Kid’s Box 3 — следующая ступень",
+        "image": "https://example.com/images/product-kidsbox3.jpg",
+        "offers": {"@type": "Offer","priceCurrency": "RUB","price": "1800","availability": "https://schema.org/InStock"}
+      },
+      {
+        "@type": "Product",
+        "name": "Go Getter 3",
+        "image": "https://example.com/images/product-gogetter3.jpg",
+        "offers": {"@type": "Offer","priceCurrency": "RUB","price": "2400","availability": "https://schema.org/InStock"}
       }
     ]
   }
@@ -184,6 +196,7 @@
       <p>Готовые наборы для уроков английского. Привноси энергию и игру, не тратя часы на подготовку.</p>
 
       <div class="grid" id="productGrid" role="list">
+        <!-- English Box -->
         <article class="card" role="listitem">
           <div class="thumb">
             <img loading="lazy" src="images/product-englishbox.jpg" width="800" height="500" alt="English Box — курс для детей 6–10 лет" />
@@ -204,6 +217,7 @@
           </div>
         </article>
 
+        <!-- Kid's Box 1 (цена и ссылка обновлены) -->
         <article class="card" role="listitem">
           <div class="thumb">
             <img loading="lazy" src="images/product-kidsbox1.jpg" width="800" height="500" alt="Kid’s Box 1 — первая ступень для начальной школы" />
@@ -212,12 +226,54 @@
             <h4>Kid’s Box 1 — первая ступень для начальной школы</h4>
             <p style="color:var(--muted);margin:0">Задания для развития речи и словаря. Весёлые активности для уверенного старта в английском!</p>
             <div class="price">
-              <div class="num" aria-label="Цена: 2000 рублей">2 000 ₽</div>
+              <div class="num" aria-label="Цена: 1800 рублей">1 800 ₽</div>
               <button class="buy" type="button"
                       data-id="p2"
                       data-title="Kid’s Box 1"
-                      data-price="2000"
-                      data-paylink="https://payform.ru/kf7SPph/">
+                      data-price="1800"
+                      data-paylink="https://payform.ru/c16FkgZ/">
+                Купить
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kid's Box 3 (новый товар) -->
+        <article class="card" role="listitem">
+          <div class="thumb">
+            <img loading="lazy" src="images/product-kidsbox3.jpg" width="800" height="500" alt="Kid’s Box 3 — следующая ступень" />
+          </div>
+          <div class="card-pad">
+            <h4>Kid’s Box 3 — следующая ступень</h4>
+            <p style="color:var(--muted);margin:0">Продолжение курса с новыми темами и заданиями для роста уверенности и словаря.</p>
+            <div class="price">
+              <div class="num" aria-label="Цена: 1800 рублей">1 800 ₽</div>
+              <button class="buy" type="button"
+                      data-id="p3"
+                      data-title="Kid’s Box 3"
+                      data-price="1800"
+                      data-paylink="https://payform.ru/c16FkgZ/">
+                Купить
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Go Getter 3 (новый товар) -->
+        <article class="card" role="listitem">
+          <div class="thumb">
+            <img loading="lazy" src="images/product-gogetter3.jpg" width="800" height="500" alt="Go Getter 3" />
+          </div>
+          <div class="card-pad">
+            <h4>Go Getter 3</h4>
+            <p style="color:var(--muted);margin:0">Материалы для подростков: актуальные темы, тренировки грамматики и живой словарь.</p>
+            <div class="price">
+              <div class="num" aria-label="Цена: 2400 рублей">2 400 ₽</div>
+              <button class="buy" type="button"
+                      data-id="p4"
+                      data-title="Go Getter 3"
+                      data-price="2400"
+                      data-paylink="https://payform.ru/i6963xu/">
                 Купить
               </button>
             </div>
@@ -404,7 +460,7 @@
       try { localStorage.setItem('paymentIntent','1'); } catch(_){}
     });
 
-    // Кнопки «Купить» — генерируем QR на https://payform.ru/kf7SPph/
+    // Кнопки «Купить» — читают ссылку оплаты из data-paylink
     document.querySelectorAll('.buy').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const title = btn.dataset.title || 'Товар';
@@ -461,7 +517,6 @@
       const v = validateForm();
       if(!v.ok){ alert(v.msg); return; }
 
-      // Если указан внешний эндпоинт (Formspree/сервер) — отправляем POST
       if(FORM_ENDPOINT){
         try{
           const fd = new FormData(form);
@@ -476,10 +531,9 @@
         }
       }
 
-      // Фоллбэк — открываем почтовый клиент через mailto
       const subject = encodeURIComponent('Заявка на занятия (сайт ENGLISH BOX)');
       const body = encodeURIComponent(`Имя: ${v.name}\nТелефон: ${v.phone}\nВремя: ${new Date().toLocaleString()}`);
-      window.location.href = `mailto:${FORM_EMAIL}?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:englishbox48@mail.ru?subject=${subject}&body=${body}`;
       showThanks('Спасибо! Открылось письмо на почту — продублируйте отправку, а мы с вами свяжемся.');
     });
   </script>
