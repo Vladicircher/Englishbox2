@@ -5,41 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ENGLISH BOX — готовые материалы и видео для уроков</title>
   <meta name="description" content="ENGLISH BOX — авторские материалы, курсы и видеоуроки для преподавателей английского языка. Уроки, которые дети обожают, а педагоги экономят время!" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+
+  <!-- SEO / Social -->
+  <link rel="canonical" href="https://example.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ENGLISH BOX — готовые материалы и видео для уроков" />
+  <meta property="og:description" content="Авторские материалы, курсы и видеоуроки для преподавателей английского языка. Уроки, которые дети обожают, а педагоги экономят время!" />
+  <meta property="og:image" content="https://example.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet" />
+
+  <!-- QR Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js" defer></script>
+
   <style>
     :root{
       --bg:#0f0b11;
       --card:#1a1120;
       --soft:#25172b;
-      --pri:#c084fc; /* фиолетовый */
-      --pri-strong:#fb923c; /* оранжевый */
+      --pri:#c084fc;       /* фиолетовый */
+      --pri-strong:#fb923c;/* оранжевый */
       --txt:#f3f4f6;
       --muted:#c1b5c7;
       --radius:18px;
       --shadow:0 10px 30px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.25);
+      --focus:#fde68a;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg),#150e17);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;}
+    :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{position:fixed;left:16px;top:16px;width:auto;height:auto;padding:10px 14px;background:#111827;color:#fff;border-radius:10px;z-index:1001}
+
     .container{max-width:1100px;margin:0 auto;padding:24px}
     header{position:sticky;top:0;background:rgba(25,15,30,.7);backdrop-filter:blur(10px);border-bottom:1px solid #2a1e33;z-index:50}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{display:flex;align-items:center;gap:14px}
     .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri-strong));display:grid;place-items:center;box-shadow:var(--shadow)}
     .brand h1{font-size:18px;letter-spacing:.6px;margin:0;font-weight:800}
-    .nav a{padding:10px 14px;border-radius:12px;color:var(--muted)}
-    .nav a:hover{background:rgba(192,132,252,.12);color:#fde68a}
+    nav a{padding:10px 14px;border-radius:12px;color:var(--muted)}
+    nav a:hover{background:rgba(192,132,252,.12);color:#fde68a}
     .cta{background:linear-gradient(135deg,var(--pri),var(--pri-strong));color:#1a0e14;padding:10px 16px;border-radius:12px;font-weight:700;box-shadow:var(--shadow)}
 
-    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:40px 0}
+    main .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:40px 0}
     .hero .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:24px;padding:28px;box-shadow:var(--shadow)}
     .hero h2{font-size:40px;line-height:1.05;margin:0 0 10px;font-weight:800}
     .hero p{color:var(--muted);margin:0 0 16px}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(192,132,252,.15);border:1px dashed #a855f7;color:#fde68a;font-size:12px;font-weight:600}
 
+    .section{scroll-margin-top:80px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
     .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:20px;box-shadow:var(--shadow)}
+    .thumb{aspect-ratio:16/10;background:#0c0f18;border-bottom:1px solid #2a1e33;border-radius:20px 20px 0 0;overflow:hidden;display:grid;place-items:center}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .card-pad{padding:16px}
+    .price{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+    .price .num{font-weight:800;font-size:20px}
     .price .buy{padding:10px 12px;border-radius:12px;background:rgba(251,146,60,.15);border:1px solid #f59e0b;color:#ffedd5;font-weight:700;cursor:pointer}
     .price .buy:hover{background:rgba(251,146,60,.25)}
 
@@ -47,108 +74,348 @@
     .video{overflow:hidden;border-radius:18px;border:1px solid #2a1e33;background:#0c0f18}
     .video video{width:100%;height:auto;display:block}
 
+    /* Modal base */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:1000}
+    .modal{width:min(92vw,520px);background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:20px;box-shadow:var(--shadow);padding:18px}
+    .modal header{position:unset;background:transparent;border:none;padding:0;margin:0 0 8px}
+    .modal h4{margin:0;font-size:20px}
+
+    /* Payment modal */
+    .modal .qrbox{display:grid;place-items:center;padding:16px;border:1px dashed #a855f7;border-radius:16px;background:rgba(192,132,252,.06)}
+    .modal .row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:12px}
+    .modal .link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fde68a}
+    .close-btn{all:unset;cursor:pointer;padding:8px 10px;border-radius:10px;background:rgba(192,132,252,.15);border:1px solid #a855f7}
+    .primary-btn{all:unset;cursor:pointer;padding:10px 14px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri-strong));color:#1a0e14;font-weight:800}
+
+    /* Thanks modal */
+    .thanks-title{font-size:22px;margin:0 0 6px}
+    .thanks-text{color:var(--muted);margin:0 0 10px}
+
     footer{padding:26px 0;color:var(--muted);border-top:1px solid #2a1e33;margin-top:40px}
+
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      .video-grid{grid-template-columns:1fr 1fr}
+      .hero{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .video-grid{grid-template-columns:1fr}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto}
+      .nav a:hover{background:rgba(192,132,252,.18)}
+    }
   </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ENGLISH BOX",
+    "url": "https://example.com/",
+    "logo": "https://example.com/logo.png",
+    "sameAs": ["https://t.me/englishbox", "https://instagram.com/englishbox", "https://vk.com/englishbox"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "Product",
+        "name": "English Box — курс для детей 6–10 лет",
+        "image": "https://example.com/images/product-englishbox.jpg",
+        "offers": {"@type": "Offer","priceCurrency": "RUB","price": "2000","availability": "https://schema.org/InStock"}
+      },
+      {
+        "@type": "Product",
+        "name": "Kid’s Box 1 — первая ступень",
+        "image": "https://example.com/images/product-kidsbox1.jpg",
+        "offers": {"@type": "Offer","priceCurrency": "RUB","price": "2000","availability": "https://schema.org/InStock"}
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-  <header>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <header role="banner">
     <div class="container nav">
       <div class="brand">
-        <div class="logo"></div>
-        <h1>ENGLISH BOX<sup>®</sup></h1>
+        <div class="logo" aria-hidden="true"></div>
+        <h1>ENGLISH BOX<sup aria-label="зарегистрированный знак">®</sup></h1>
       </div>
-      <nav>
+      <nav aria-label="Основная навигация">
         <a href="#products">Товары</a>
         <a href="#videos">Видео</a>
         <a href="#about">О бренде</a>
-        <a href="#contact" class="cta">Связаться</a>
+        <a href="https://vk.com/englishbox" class="cta" target="_blank" rel="noopener noreferrer" id="contactBtn">Связаться</a>
       </nav>
     </div>
   </header>
 
-  <section class="container hero">
-    <div class="card">
-      <div class="badge">Для педагогов • Для вдохновения • Для лёгких уроков</div>
-      <h2>Сделай свои уроки волшебными с ENGLISH BOX</h2>
-      <p>Готовые материалы, которые вдохновляют детей и экономят время учителя. Добавь в свои занятия яркость, игру и системность — всё уже упаковано в коробку!</p>
-      <p><strong>«Учителю — идеи, детям — восторг!»</strong></p>
-    </div>
-  </section>
+  <main id="main">
+    <section class="container hero" aria-labelledby="hero-title">
+      <div class="card">
+        <div class="badge" aria-label="метки: для педагогов, для вдохновения, для лёгких уроков">Для педагогов • Для вдохновения • Для лёгких уроков</div>
+        <h2 id="hero-title">Сделай свои уроки волшебными с ENGLISH BOX</h2>
+        <p>Готовые материалы, которые вдохновляют детей и экономят время учителя. Добавь в свои занятия яркость, игру и системность — всё уже упаковано в коробку!</p>
+        <p><strong>«Учителю — идеи, детям — восторг!»</strong></p>
+      </div>
+    </section>
 
-  <section id="products" class="container section">
-    <h3>Магазин</h3>
-    <p>Готовые наборы для уроков английского. Привноси энергию и игру, не тратя часы на подготовку.</p>
-    <div class="grid" id="productGrid">
-      <article class="card">
-        <div class="thumb">
-          <img src="images/product-englishbox.jpg" alt="English Box - курс для детей 6-10 лет"/>
-        </div>
-        <div class="card-pad">
-          <h4>English Box — курс для детей 6–10 лет</h4>
-          <p style="color:var(--muted);margin:0">Игровые задания, карточки и видеоуроки. Материалы, которые делают обучение лёгким и весёлым.</p>
-          <div class="price">
-            <div class="num">2 000 ₽</div>
-            <button class="buy" data-id="p1" data-title="English Box" data-price="2000">Купить</button>
+    <!-- Магазин -->
+    <section id="products" class="container section" aria-labelledby="shop-title">
+      <h3 id="shop-title">Магазин</h3>
+      <p>Готовые наборы для уроков английского. Привноси энергию и игру, не тратя часы на подготовку.</p>
+
+      <div class="grid" id="productGrid" role="list">
+        <article class="card" role="listitem">
+          <div class="thumb">
+            <img loading="lazy" src="images/product-englishbox.jpg" width="800" height="500" alt="English Box — курс для детей 6–10 лет" />
           </div>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="thumb">
-          <img src="images/product-kidsbox1.jpg" alt="Kid's Box 1 - первая ступень для начальной школы"/>
-        </div>
-        <div class="card-pad">
-          <h4>Kid’s Box 1 — первая ступень для начальной школы</h4>
-          <p style="color:var(--muted);margin:0">Задания для развития речи и словаря. Весёлые активности для уверенного старта в английском!</p>
-          <div class="price">
-            <div class="num">2 000 ₽</div>
-            <button class="buy" data-id="p2" data-title="Kid’s Box 1" data-price="2000">Купить</button>
+          <div class="card-pad">
+            <h4>English Box — курс для детей 6–10 лет</h4>
+            <p style="color:var(--muted);margin:0">Игровые задания, карточки и видеоуроки. Материалы, которые делают обучение лёгким и весёлым.</p>
+            <div class="price">
+              <div class="num" aria-label="Цена: 2000 рублей">2 000 ₽</div>
+              <button class="buy" type="button"
+                      data-id="p1"
+                      data-title="English Box"
+                      data-price="2000"
+                      data-paylink="https://payform.ru/kf7SPph/">
+                Купить
+              </button>
+            </div>
           </div>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="thumb">
+            <img loading="lazy" src="images/product-kidsbox1.jpg" width="800" height="500" alt="Kid’s Box 1 — первая ступень для начальной школы" />
+          </div>
+          <div class="card-pad">
+            <h4>Kid’s Box 1 — первая ступень для начальной школы</h4>
+            <p style="color:var(--muted);margin:0">Задания для развития речи и словаря. Весёлые активности для уверенного старта в английском!</p>
+            <div class="price">
+              <div class="num" aria-label="Цена: 2000 рублей">2 000 ₽</div>
+              <button class="buy" type="button"
+                      data-id="p2"
+                      data-title="Kid’s Box 1"
+                      data-price="2000"
+                      data-paylink="https://payform.ru/kf7SPph/">
+                Купить
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Видео -->
+    <section id="videos" class="container section" aria-labelledby="video-title">
+      <h3 id="video-title">Видео с занятий</h3>
+      <p>Посмотрите, как проходят занятия с ENGLISH BOX — живо, с улыбками и реальным вовлечением детей!</p>
+      <div class="video-grid">
+        <div class="video">
+          <video controls preload="metadata" poster="images/lesson1.jpg" aria-label="Урок 1">
+            <source src="videos/lesson1.mp4" type="video/mp4" />
+          </video>
         </div>
-      </article>
+        <div class="video">
+          <video controls preload="metadata" poster="images/lesson2.jpg" aria-label="Урок 2">
+            <source src="videos/lesson2.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="video">
+          <video controls preload="metadata" poster="images/lesson3.jpg" aria-label="Урок 3">
+            <source src="videos/lesson3.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Для коллег -->
+    <section id="about" class="container section" aria-labelledby="about-title">
+      <h3 id="about-title">Для коллег</h3>
+      <p><strong>Педагоги заслуживают вдохновения, а не выгорания!</strong></p>
+      <ul>
+        <li>📦 Все материалы готовы — бери и проводи урок без суеты;</li>
+        <li>✨ Экономь время — забудь о ночных распечатках и бесконечных поисках идей;</li>
+        <li>🎯 Сделай занятия динамичными, весёлыми и запоминающимися;</li>
+        <li>💡 «ENGLISH BOX» — это не просто материалы, а уверенность и драйв на каждом уроке!</li>
+      </ul>
+      <p>Давай делать обучение лёгким, современным и настоящим праздником для детей.</p>
+    </section>
+  </main>
+
+  <!-- Контакты -->
+  <section id="contact" class="container section" aria-labelledby="contact-title">
+    <h3 id="contact-title">Связаться</h3>
+    <p>Напишите нам в VK: <a href="https://vk.com/englishbox" target="_blank" rel="noopener noreferrer">vk.com/englishbox</a></p>
+  </section>
+
+  <!-- Модальное окно оплаты (QR) -->
+  <div id="qrModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="qrTitle" aria-describedby="qrDesc">
+    <div class="modal">
+      <header class="row" style="display:flex;align-items:center;justify-content:space-between">
+        <h4 id="qrTitle">Оплата</h4>
+        <button class="close-btn" id="qrClose" type="button" aria-label="Закрыть окно оплаты">Закрыть</button>
+      </header>
+      <div class="qrbox" id="qrBox" aria-label="QR-код для оплаты"></div>
+      <div class="row">
+        <span class="link" id="qrLinkText"></span>
+        <a id="qrOpen" class="primary-btn" target="_blank" rel="noopener noreferrer">Открыть оплату</a>
+      </div>
+      <p id="qrDesc" style="margin-top:10px;color:var(--muted);font-size:13px">Отсканируйте QR камерой телефона или нажмите «Открыть оплату».</p>
     </div>
-  </section>
+  </div>
 
-  <section id="videos" class="container section">
-    <h3>Видео с занятий</h3>
-    <p>Посмотрите, как проходят занятия с ENGLISH BOX — живо, с улыбками и реальным вовлечением детей!</p>
-    <div class="video-grid">
-      <div class="video">
-        <video controls preload="metadata" poster="images/lesson1.jpg" aria-label="Урок 1">
-          <source src="videos/lesson1.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <div class="video">
-        <video controls preload="metadata" poster="images/lesson2.jpg" aria-label="Урок 2">
-          <source src="videos/lesson2.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <div class="video">
-        <video controls preload="metadata" poster="images/lesson3.jpg" aria-label="Урок 3">
-          <source src="videos/lesson3.mp4" type="video/mp4" />
-        </video>
-      </div>
+  <!-- Модальное окно благодарности -->
+  <div id="thanksModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="thanksTitle" aria-describedby="thanksText">
+    <div class="modal" style="text-align:center">
+      <header class="row" style="display:flex;align-items:center;justify-content:space-between">
+        <h4 id="thanksTitle" class="thanks-title">Спасибо!</h4>
+        <button class="close-btn" id="thanksClose" type="button" aria-label="Закрыть сообщение">Закрыть</button>
+      </header>
+      <p id="thanksText" class="thanks-text">Спасибо за покупку.</p>
+      <button class="primary-btn" id="thanksOk" type="button">Хорошо</button>
     </div>
-  </section>
+  </div>
 
-  <section id="about" class="container section">
-    <h3>Для коллег</h3>
-    <p><strong>Педагоги заслуживают вдохновения, а не выгорания!</strong></p>
-    <ul>
-      <li>📦 Все материалы готовы — бери и проводи урок без суеты;</li>
-      <li>✨ Экономь время — забудь о ночных распечатках и бесконечных поисках идей;</li>
-      <li>🎯 Сделай занятия динамичными, весёлыми и запоминающимися;</li>
-      <li>💡 «ENGLISH BOX» — это не просто материалы, а уверенность и драйв на каждом уроке!</li>
-    </ul>
-    <p>Давай делать обучение лёгким, современным и настоящим праздником для детей.</p>
-  </section>
-
-  <footer>
+  <footer role="contentinfo">
     <div class="container">© <span id="year"></span> ENGLISH BOX<sup>®</sup>. Все права защищены.</div>
   </footer>
 
   <script>
+    // Год в футере
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Модалки и ловушка фокуса
+    const qrModal = document.getElementById('qrModal');
+    const thanksModal = document.getElementById('thanksModal');
+    let lastActive = null; // куда вернуть фокус
+    let activeTrap = null; // текущая модалка для ловушки фокуса
+
+    function trapFocus(e){
+      if(activeTrap && !activeTrap.contains(e.target)){
+        e.stopPropagation();
+        const focusable = activeTrap.querySelectorAll('a[href],button,[tabindex]:not([tabindex="-1"])');
+        if(focusable.length){ focusable[0].focus(); }
+      }
+    }
+
+    function openModal(modalEl, initialFocusEl){
+      lastActive = document.activeElement;
+      modalEl.style.display = 'flex';
+      modalEl.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      activeTrap = modalEl;
+      setTimeout(()=>{ (initialFocusEl || modalEl.querySelector('button, a'))?.focus(); }, 0);
+      document.addEventListener('focus', trapFocus, true);
+    }
+
+    function closeModal(modalEl){
+      modalEl.style.display = 'none';
+      modalEl.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      document.removeEventListener('focus', trapFocus, true);
+      activeTrap = null;
+      if(lastActive) lastActive.focus();
+    }
+
+    // Оплата (QR)
+    const qrBox = document.getElementById('qrBox');
+    const qrTitle = document.getElementById('qrTitle');
+    const qrLinkText = document.getElementById('qrLinkText');
+    const qrOpen = document.getElementById('qrOpen');
+    const qrClose = document.getElementById('qrClose');
+    let qrInstance = null;
+    let paymentLinkOpened = false;
+
+    function openQRModal(title, payLink){
+      // проверим ссылку
+      try { new URL(payLink); } catch(e){
+        alert('Некорректная ссылка на оплату.');
+        return;
+      }
+      paymentLinkOpened = false;
+      qrBox.innerHTML = '';
+      // eslint-disable-next-line no-undef
+      qrInstance = new QRCode(qrBox, { text: payLink, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M });
+      qrTitle.textContent = `Оплата — ${title}`;
+      qrLinkText.textContent = payLink;
+      qrOpen.href = payLink; // откроется в новой вкладке
+      openModal(qrModal, qrOpen);
+    }
+
+    function closeQR(){
+      closeModal(qrModal);
+      if(qrInstance){ qrBox.innerHTML=''; qrInstance = null; }
+      // Если пользователь закрыл окно и не переходил по ссылке — благодарим за интерес
+      if(!paymentLinkOpened){ showThanks('Спасибо за интерес к нашим товарам!'); }
+    }
+
+    qrClose.addEventListener('click', closeQR);
+    qrModal.addEventListener('click', (e)=>{ if(e.target === qrModal) closeQR(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && qrModal.getAttribute('aria-hidden') === 'false') closeQR(); });
+
+    // Кнопка перехода к оплате
+    qrOpen.addEventListener('click', ()=>{
+      paymentLinkOpened = true;
+      // отметим намерение оплаты: можно использовать для последующей логики
+      try { localStorage.setItem('paymentIntent','1'); } catch(_){}
+    });
+
+    // Кнопки «Купить» — генерируем QR на https://payform.ru/kf7SPph/
+    document.querySelectorAll('.buy').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const title = btn.dataset.title || 'Товар';
+        const pay = btn.dataset.paylink || 'https://payform.ru/kf7SPph/';
+        openQRModal(title, pay);
+      });
+    });
+
+    // Модалка "Спасибо"
+    const thanksTitle = document.getElementById('thanksTitle');
+    const thanksText = document.getElementById('thanksText');
+    const thanksClose = document.getElementById('thanksClose');
+    const thanksOk = document.getElementById('thanksOk');
+
+    function showThanks(text){
+      thanksTitle.textContent = 'Спасибо!';
+      thanksText.textContent = text;
+      openModal(thanksModal, thanksOk);
+    }
+
+    function closeThanks(){ closeModal(thanksModal); }
+    thanksClose.addEventListener('click', closeThanks);
+    thanksOk.addEventListener('click', closeThanks);
+    thanksModal.addEventListener('click', (e)=>{ if(e.target === thanksModal) closeThanks(); });
+
+    // Поддержка сценария с возвратом с платёжной страницы
+    // Если у платёжного провайдера настроить redirect на этот URL с параметром ?payment=success,
+    // то мы покажем соответствующее сообщение.
+    (function handleReturn(){
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('payment');
+      if(status === 'success'){
+        showThanks('Спасибо за покупку!');
+        try { localStorage.removeItem('paymentIntent'); } catch(_){}
+        // очищаем параметр, чтобы при обновлении страницы сообщение не повторялось
+        const url = new URL(window.location.href);
+        url.searchParams.delete('payment');
+        window.history.replaceState({}, '', url.toString());
+      }
+    })();
   </script>
+
+  <noscript>
+    <div class="container" style="margin-top:16px;color:#fef3c7">Для создания QR-кода требуется включённый JavaScript. Вы всё равно можете перейти к оплате по кнопке «Купить» — она откроет ссылку в новой вкладке.</div>
+  </noscript>
 </body>
 </html>
