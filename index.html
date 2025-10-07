@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ENGLISH BOX — готовые материалы и видео для уроков</title>
+  <meta name="description" content="ENGLISH BOX — авторские материалы, курсы и видеоуроки для преподавателей английского языка. Уроки, которые дети обожают, а педагоги экономят время!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f0b11;
+      --card:#1a1120;
+      --soft:#25172b;
+      --pri:#c084fc; /* фиолетовый */
+      --pri-strong:#fb923c; /* оранжевый */
+      --txt:#f3f4f6;
+      --muted:#c1b5c7;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg),#150e17);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;background:rgba(25,15,30,.7);backdrop-filter:blur(10px);border-bottom:1px solid #2a1e33;z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri-strong));display:grid;place-items:center;box-shadow:var(--shadow)}
+    .brand h1{font-size:18px;letter-spacing:.6px;margin:0;font-weight:800}
+    .nav a{padding:10px 14px;border-radius:12px;color:var(--muted)}
+    .nav a:hover{background:rgba(192,132,252,.12);color:#fde68a}
+    .cta{background:linear-gradient(135deg,var(--pri),var(--pri-strong));color:#1a0e14;padding:10px 16px;border-radius:12px;font-weight:700;box-shadow:var(--shadow)}
+
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:40px 0}
+    .hero .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+    .hero h2{font-size:40px;line-height:1.05;margin:0 0 10px;font-weight:800}
+    .hero p{color:var(--muted);margin:0 0 16px}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(192,132,252,.15);border:1px dashed #a855f7;color:#fde68a;font-size:12px;font-weight:600}
+
+    .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:20px;box-shadow:var(--shadow)}
+    .price .buy{padding:10px 12px;border-radius:12px;background:rgba(251,146,60,.15);border:1px solid #f59e0b;color:#ffedd5;font-weight:700;cursor:pointer}
+    .price .buy:hover{background:rgba(251,146,60,.25)}
+
+    .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+    .video{overflow:hidden;border-radius:18px;border:1px solid #2a1e33;background:#0c0f18}
+    .video video{width:100%;height:auto;display:block}
+
+    footer{padding:26px 0;color:var(--muted);border-top:1px solid #2a1e33;margin-top:40px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <h1>ENGLISH BOX<sup>®</sup></h1>
+      </div>
+      <nav>
+        <a href="#products">Товары</a>
+        <a href="#videos">Видео</a>
+        <a href="#about">О бренде</a>
+        <a href="#contact" class="cta">Связаться</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="container hero">
+    <div class="card">
+      <div class="badge">Для педагогов • Для вдохновения • Для лёгких уроков</div>
+      <h2>Сделай свои уроки волшебными с ENGLISH BOX</h2>
+      <p>Готовые материалы, которые вдохновляют детей и экономят время учителя. Добавь в свои занятия яркость, игру и системность — всё уже упаковано в коробку!</p>
+      <p><strong>«Учителю — идеи, детям — восторг!»</strong></p>
+    </div>
+  </section>
+
+  <section id="products" class="container section">
+    <h3>Магазин</h3>
+    <p>Готовые наборы для уроков английского. Привноси энергию и игру, не тратя часы на подготовку.</p>
+    <div class="grid" id="productGrid">
+      <article class="card">
+        <div class="thumb">
+          <img src="images/product-englishbox.jpg" alt="English Box - курс для детей 6-10 лет"/>
+        </div>
+        <div class="card-pad">
+          <h4>English Box — курс для детей 6–10 лет</h4>
+          <p style="color:var(--muted);margin:0">Игровые задания, карточки и видеоуроки. Материалы, которые делают обучение лёгким и весёлым.</p>
+          <div class="price">
+            <div class="num">2 000 ₽</div>
+            <button class="buy" data-id="p1" data-title="English Box" data-price="2000">Купить</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="thumb">
+          <img src="images/product-kidsbox1.jpg" alt="Kid's Box 1 - первая ступень для начальной школы"/>
+        </div>
+        <div class="card-pad">
+          <h4>Kid’s Box 1 — первая ступень для начальной школы</h4>
+          <p style="color:var(--muted);margin:0">Задания для развития речи и словаря. Весёлые активности для уверенного старта в английском!</p>
+          <div class="price">
+            <div class="num">2 000 ₽</div>
+            <button class="buy" data-id="p2" data-title="Kid’s Box 1" data-price="2000">Купить</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="videos" class="container section">
+    <h3>Видео с занятий</h3>
+    <p>Посмотрите, как проходят занятия с ENGLISH BOX — живо, с улыбками и реальным вовлечением детей!</p>
+    <div class="video-grid">
+      <div class="video">
+        <video controls preload="metadata" poster="images/lesson1.jpg" aria-label="Урок 1">
+          <source src="videos/lesson1.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video">
+        <video controls preload="metadata" poster="images/lesson2.jpg" aria-label="Урок 2">
+          <source src="videos/lesson2.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video">
+        <video controls preload="metadata" poster="images/lesson3.jpg" aria-label="Урок 3">
+          <source src="videos/lesson3.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="container section">
+    <h3>Для коллег</h3>
+    <p><strong>Педагоги заслуживают вдохновения, а не выгорания!</strong></p>
+    <ul>
+      <li>📦 Все материалы готовы — бери и проводи урок без суеты;</li>
+      <li>✨ Экономь время — забудь о ночных распечатках и бесконечных поисках идей;</li>
+      <li>🎯 Сделай занятия динамичными, весёлыми и запоминающимися;</li>
+      <li>💡 «ENGLISH BOX» — это не просто материалы, а уверенность и драйв на каждом уроке!</li>
+    </ul>
+    <p>Давай делать обучение лёгким, современным и настоящим праздником для детей.</p>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> ENGLISH BOX<sup>®</sup>. Все права защищены.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
