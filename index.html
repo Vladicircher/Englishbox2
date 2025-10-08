@@ -24,45 +24,95 @@
 
   <style>
     :root{
-      --bg:#0f0b11;
-      --card:#1a1120;
-      --soft:#25172b;
-      --pri:#c084fc;       /* фиолетовый */
-      --pri-strong:#fb923c;/* оранжевый */
-      --txt:#f3f4f6;
-      --muted:#c1b5c7;
+      /* Яркая палитра */
+      --bg:#16091a;
+      --bg2:#2a1033;
+      --card:#1d0f24;
+      --soft:#2b1440;
+      --pri:#d08bff;        /* фиолетовый */
+      --pri-strong:#ff9c4a; /* оранжевый */
+      --gold:#ffd166;       /* золото для звёзд */
+      --txt:#f8fafc;
+      --muted:#d9cfe0;
       --radius:18px;
       --shadow:0 10px 30px rgba(0,0,0,.35), 0 2px 10px rgba(0,0,0,.25);
       --focus:#fde68a;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg),#150e17);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    html,body{margin:0;padding:0;color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;}
+
+    /* Фон: градиент + звёзды + буквы (ненавязчиво) */
+    body{
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(255,156,74,.25), transparent 60%),
+        radial-gradient(1000px 500px at 90% 20%, rgba(208,139,255,.25), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      position:relative;
+      min-height:100dvh;
+      overflow-x:hidden;
+    }
+    body::before{ /* золотые звёзды */
+      content:"";
+      position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background:
+        radial-gradient(2px 2px at 10% 15%, var(--gold), transparent 60%),
+        radial-gradient(1.5px 1.5px at 30% 25%, var(--gold), transparent 60%),
+        radial-gradient(2.5px 2.5px at 70% 18%, var(--gold), transparent 60%),
+        radial-gradient(1.8px 1.8px at 85% 35%, var(--gold), transparent 60%),
+        radial-gradient(1.2px 1.2px at 40% 60%, var(--gold), transparent 60%),
+        radial-gradient(2px 2px at 65% 75%, var(--gold), transparent 60%),
+        radial-gradient(1.4px 1.4px at 15% 80%, var(--gold), transparent 60%);
+      opacity:.55;
+      animation: twinkle 6s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 6px rgba(255,209,102,.35));
+    }
+    body::after{ /* английские буквы узором */
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:-2;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' fill-opacity='0.12' stroke='%23FFD166' stroke-opacity='0.15' stroke-width='1'%3E%3Ctext x='20' y='60' font-family='Inter,Arial' font-size='48'%3EA B C%3C/text%3E%3Ctext x='120' y='140' font-family='Inter,Arial' font-size='42'%3ED E F%3C/text%3E%3Ctext x='50' y='210' font-family='Inter,Arial' font-size='40'%3EG H I%3C/text%3E%3C/g%3E%3C/svg%3E");
+      background-repeat:repeat; background-size:240px 240px;
+      mix-blend-mode:screen;
+    }
+    @keyframes twinkle{ from{opacity:.35} to{opacity:.75} }
+
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:auto;}
+    img{max-width:100%;height:auto}
     :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
     .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
     .skip-link:focus{position:fixed;left:16px;top:16px;width:auto;height:auto;padding:10px 14px;background:#111827;color:#fff;border-radius:10px;z-index:1001}
 
     .container{max-width:1100px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;background:rgba(25,15,30,.7);backdrop-filter:blur(10px);border-bottom:1px solid #2a1e33;z-index:60}
+
+    /* Верхняя шапка (masthead) */
+    .masthead{position:relative; padding:64px 0 48px; background:
+      radial-gradient(800px 300px at 15% 10%, rgba(255,156,74,.35), transparent 60%),
+      radial-gradient(900px 360px at 85% 5%, rgba(208,139,255,.35), transparent 60%);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .masthead .display{font-size: clamp(48px, 8vw, 92px); line-height: .95; font-weight: 800; letter-spacing: .5px;
+      text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,.35);
+      background: linear-gradient(135deg, #fff 0%, #ffe8b3 35%, var(--gold) 60%, #fff 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    header{position:sticky;top:0;background:rgba(35,20,45,.7);backdrop-filter:blur(10px);border-bottom:1px solid #3a2150;z-index:60}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{display:flex;align-items:center;gap:14px}
-    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri-strong));display:grid;place-items:center;box-shadow:var(--shadow)}
-    .brand h1{font-size:18px;letter-spacing:.6px;margin:0;font-weight:800}
+    .logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--pri),var(--pri-strong));display:grid;place-items:center;box-shadow:var(--shadow)}
+    .brand h1{font-size:20px;letter-spacing:.8px;margin:0;font-weight:800}
     nav a{padding:10px 14px;border-radius:12px;color:var(--muted)}
-    nav a:hover{background:rgba(192,132,252,.12);color:#fde68a}
+    nav a:hover{background:rgba(255,156,74,.18);color:#fff7cc}
     .cta{background:linear-gradient(135deg,var(--pri),var(--pri-strong));color:#1a0e14;padding:10px 16px;border-radius:12px;font-weight:700;box-shadow:var(--shadow)}
 
     main .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:40px 0}
-    .hero .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+    .hero .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #3a2150;border-radius:24px;padding:28px;box-shadow:var(--shadow)}
     .hero h2{font-size:40px;line-height:1.05;margin:0 0 10px;font-weight:800}
     .hero p{color:var(--muted);margin:0 0 16px}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(192,132,252,.15);border:1px dashed #a855f7;color:#fde68a;font-size:12px;font-weight:600}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(208,139,255,.18);border:1px dashed #a855f7;color:#fde68a;font-size:12px;font-weight:600}
 
     .section{scroll-margin-top:96px}
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:20px;box-shadow:var(--shadow)}
-    .thumb{aspect-ratio:16/10;background:#0c0f18;border-bottom:1px solid #2a1e33;border-radius:20px 20px 0 0;overflow:hidden;display:grid;place-items:center}
+    .card{background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #3a2150;border-radius:20px;box-shadow:var(--shadow)}
+    .thumb{aspect-ratio:16/10;background:#0c0f18;border-bottom:1px solid #3a2150;border-radius:20px 20px 0 0;overflow:hidden;display:grid;place-items:center}
     .thumb img{width:100%;height:100%;object-fit:cover}
     .card-pad{padding:16px}
     .price{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
@@ -71,12 +121,12 @@
     .price .buy:hover{background:rgba(251,146,60,.25)}
 
     .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
-    .video{overflow:hidden;border-radius:18px;border:1px solid #2a1e33;background:#0c0f18}
+    .video{overflow:hidden;border-radius:18px;border:1px solid #3a2150;background:#0c0f18}
     .video video{width:100%;height:auto;display:block}
 
     /* Modal base */
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:1000}
-    .modal{width:min(92vw,520px);background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #2a1e33;border-radius:20px;box-shadow:var(--shadow);padding:18px}
+    .modal{width:min(92vw,520px);background:linear-gradient(180deg,var(--card),var(--soft));border:1px solid #3a2150;border-radius:20px;box-shadow:var(--shadow);padding:18px}
     .modal header{position:unset;background:transparent;border:none;padding:0;margin:0 0 8px}
     .modal h4{margin:0;font-size:20px}
 
@@ -95,12 +145,12 @@
     .form{display:grid;gap:12px;max-width:560px}
     .form label{font-weight:600}
     .field{display:flex;flex-direction:column;gap:6px}
-    .input{padding:12px 14px;border-radius:12px;border:1px solid #2a1e33;background:#0c0f18;color:var(--txt)}
+    .input{padding:12px 14px;border-radius:12px;border:1px solid #3a2150;background:#0c0f18;color:var(--txt)}
     .input:focus{outline:3px solid rgba(192,132,252,.35);outline-offset:2px}
     .hint{color:var(--muted);font-size:13px}
     .btn{all:unset;cursor:pointer;padding:12px 16px;border-radius:12px;background:linear-gradient(135deg,var(--pri),var(--pri-strong));color:#1a0e14;font-weight:800;text-align:center}
 
-    footer{padding:26px 0;color:var(--muted);border-top:1px solid #2a1e33;margin-top:40px}
+    footer{padding:26px 0;color:var(--muted);border-top:1px solid #3a2150;margin-top:40px}
 
     @media (max-width: 980px){
       .grid{grid-template-columns:1fr}
@@ -164,6 +214,13 @@
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
 
+  <!-- Большая шапка -->
+  <div class="masthead" role="img" aria-label="English Box">
+    <div class="container">
+      <div class="display" aria-hidden="true">English Box</div>
+    </div>
+  </div>
+
   <header role="banner">
     <div class="container nav">
       <div class="brand">
@@ -190,7 +247,7 @@
       </div>
     </section>
 
-    <!-- Магазин -->
+    <!-- Магазин (оставлен без изменений, кроме новых стилей фона) -->
     <section id="products" class="container section" aria-labelledby="shop-title">
       <h3 id="shop-title">Магазин</h3>
       <p>Готовые наборы для уроков английского. Привноси энергию и игру, не тратя часы на подготовку.</p>
@@ -217,7 +274,7 @@
           </div>
         </article>
 
-        <!-- Kid's Box 1 (цена и ссылка обновлены) -->
+        <!-- Kid's Box 1 -->
         <article class="card" role="listitem">
           <div class="thumb">
             <img loading="lazy" src="images/product-kidsbox1.jpg" width="800" height="500" alt="Kid’s Box 1 — первая ступень для начальной школы" />
@@ -238,7 +295,7 @@
           </div>
         </article>
 
-        <!-- Kid's Box 3 (новый товар) -->
+        <!-- Kid's Box 3 -->
         <article class="card" role="listitem">
           <div class="thumb">
             <img loading="lazy" src="images/product-kidsbox3.jpg" width="800" height="500" alt="Kid’s Box 3 — следующая ступень" />
@@ -259,7 +316,7 @@
           </div>
         </article>
 
-        <!-- Go Getter 3 (новый товар) -->
+        <!-- Go Getter 3 -->
         <article class="card" role="listitem">
           <div class="thumb">
             <img loading="lazy" src="images/product-gogetter3.jpg" width="800" height="500" alt="Go Getter 3" />
